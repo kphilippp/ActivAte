@@ -52,7 +52,7 @@ const styles = StyleSheet.create({
     paddingTop: "30%",
     paddingLeft: "12%",
     paddingRight: "12%",
-    paddingBottom: "30%",
+    paddingBottom: "40%",
     flex: 1,
     justifyContent: "space-between",
   },

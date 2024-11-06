@@ -2,11 +2,11 @@ import React from "react";
 import { TouchableOpacity, Text, StyleSheet } from "react-native";
 import colors from "../assets/colors";
 
-function Button({ text, height, color, onPress }) {
+function CustomButton({ text, h, w, color, onPress }) {
   return (
     <TouchableOpacity
       onPress={onPress}
-      style={[styles.button, { height: height, backgroundColor: color }]}
+      style={[styles.button, { height: h, width: w, backgroundColor: color }]}
     >
       <Text style={styles.text}>{text}</Text>
     </TouchableOpacity>
@@ -26,4 +26,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Button;
+export default CustomButton;

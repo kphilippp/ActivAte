@@ -1,11 +1,12 @@
-import React = require("react");
+import CustomButton from "@/components/Button";
+import { useState } from "react";
 import { SafeAreaView, StyleSheet, Text, TextInput, View } from "react-native";
 import colors from "../../assets/colors";
-import Button from "../../components/Button.jsx";
+import { router } from "expo-router";
 
-const LoginScreen = (props) => {
-  const [email, setEmail] = React.useState("");
-  const [password, setPassword] = React.useState("");
+const SignInScreen = () => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
   return (
     <SafeAreaView style={styles.main_container}>
@@ -34,8 +35,24 @@ const LoginScreen = (props) => {
             ></TextInput>
           </View>
           <View style={{ gap: 10 }}>
-            <Button text="Login" height={60} color={colors.button_secondary} />
-            <Button text="Sign Up" height={60} color={colors.button_primary} />
+            <CustomButton
+              text="Login"
+              h={60}
+              w={"100%"}
+              color={colors.button_secondary}
+              onPress={() => {
+                router.replace("/");
+              }}
+            />
+            <CustomButton
+              text="Sign Up"
+              h={60}
+              w={"100%"}
+              color={colors.button_primary}
+              onPress={() => {
+                router.replace("/(auth)/sign-up");
+              }}
+            />
           </View>
         </View>
       </View>
@@ -78,4 +95,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default LoginScreen;
+export default SignInScreen;

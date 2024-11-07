@@ -1,7 +1,7 @@
 import { SafeAreaView, StyleSheet, Text, View } from "react-native";
 import React, { useState } from "react";
 import { colors_ } from "@/constants/Colors";
-import CustomButton from "@/components/Button";
+import CustomButton from "@/components/Button.js";
 import { router } from "expo-router";
 
 const ProfileConfigureScreen = () => {

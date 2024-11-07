@@ -8,6 +8,10 @@ interface CustomColors {
   button_secondary: string;
   input_background: string;
   input_placeholder: string;
+  active_navbar: string;
+  inactive_navbar: string;
+  navbar_background: string;
+  navbar_shadow: string;
 }
 
 const _colors: CustomColors = {
@@ -23,6 +27,11 @@ const _colors: CustomColors = {
 
   input_background: "#565656",
   input_placeholder: "#FFFFFF",
+
+  active_navbar: "#FFFFFF",
+  inactive_navbar: "#565656",
+  navbar_background: "#044687",
+  navbar_shadow: "#000",
 };
 
 export default _colors;

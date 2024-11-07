@@ -1,8 +1,7 @@
-import CustomButton from "@/components/Button";
+import CustomButton from "@/components/Button.js";
 import { useState } from "react";
 import { SafeAreaView, StyleSheet, Text, TextInput, View } from "react-native";
 import { colors_ } from "@/constants/Colors";
-
 import { router } from "expo-router";
 
 const SignInScreen = () => {

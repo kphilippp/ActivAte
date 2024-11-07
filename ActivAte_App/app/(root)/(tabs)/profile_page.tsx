@@ -4,9 +4,6 @@ import { SafeAreaView, StyleSheet, Text, View } from "react-native";
 const ProfilePage = () => {
   return (
     <SafeAreaView>
-      <View>fdlkvdflkv</View>
-      <View>fdlkvdflkv</View>
-      <View></View>
       <View></View>
     </SafeAreaView>
   );
@@ -21,9 +18,6 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "space-between",
   },
-  space_between_container: {
-    justifyContent: "space-between",
-  },
   heading: {
     color: _colors.text_primary,
     fontWeight: "bold",
@@ -35,14 +29,6 @@ const styles = StyleSheet.create({
     color: _colors.text_primary,
 
     fontSize: 20,
-  },
-  input: {
-    height: 50,
-    borderRadius: 10,
-    padding: 10,
-    paddingLeft: 20,
-    backgroundColor: _colors.input_background,
-    color: _colors.text_primary,
   },
 });
 

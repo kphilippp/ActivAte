@@ -1,11 +1,11 @@
 import { StyleSheet, Text, View } from "react-native";
-import _colors from "../../assets/colors";
+import { colors_ } from "@/constants/Colors";
 import { SafeAreaView } from "react-native-safe-area-context";
-import CustomButton from "../../components/Button";
+import CustomButton from "@/components/Button";
 import { router } from "expo-router";
 import Swiper from "react-native-swiper";
 import { useRef, useState } from "react";
-import onboardingScreens from "../../constants/onboarding";
+import onboardingScreens from "@/constants/OnboardingScreenDetails";
 
 const WelcomePage = () => {
   const swiperRef = useRef<Swiper>(null);
@@ -18,7 +18,7 @@ const WelcomePage = () => {
         loop={false}
         dot={<View style={styles.dot} />}
         activeDot={<View style={styles.active_dot} />}
-        onIndexChanged={(index) => setActiveIndex(index)}
+        onIndexChanged={(index: number) => setActiveIndex(index)}
       >
         {onboardingScreens.map((screen, index) => (
           <View key={index} style={styles.container}>
@@ -37,7 +37,7 @@ const WelcomePage = () => {
           text="Continue"
           h={60}
           w="75%"
-          color={_colors.button_primary}
+          color={colors_.button_primary}
           onPress={() => {
             router.replace("/(auth)/sign_in");
           }}
@@ -47,7 +47,7 @@ const WelcomePage = () => {
           text="Skip"
           h={60}
           w="75%"
-          color={_colors.button_secondary}
+          color={colors_.button_secondary}
           onPress={() => {
             router.replace("/(auth)/sign_in");
           }}
@@ -61,7 +61,7 @@ export default WelcomePage;
 
 const styles = StyleSheet.create({
   main_container: {
-    backgroundColor: _colors.login_main,
+    backgroundColor: colors_.login_main,
     flex: 1,
     alignItems: "center",
     paddingBottom: 100,
@@ -75,14 +75,14 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
   },
   heading: {
-    color: _colors.text_primary,
+    color: colors_.text_primary,
     fontWeight: "bold",
     fontSize: 60,
 
     lineHeight: 55,
   },
   caption: {
-    color: _colors.text_primary,
+    color: colors_.text_primary,
 
     fontSize: 20,
   },
@@ -91,13 +91,13 @@ const styles = StyleSheet.create({
     height: 4,
     marginLeft: 1,
     marginRight: 1,
-    backgroundColor: _colors.text_primary,
+    backgroundColor: colors_.text_primary,
   },
   active_dot: {
     width: 32,
     height: 4,
     marginLeft: 1,
     marginRight: 1,
-    backgroundColor: _colors.text_primary,
+    backgroundColor: colors_.text_primary,
   },
 });

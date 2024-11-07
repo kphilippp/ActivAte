@@ -50,7 +50,7 @@ const SignInScreen = () => {
               w={"100%"}
               color={colors.button_primary}
               onPress={() => {
-                router.replace("/(auth)/sign-up");
+                router.replace("/(auth)/sign_up");
               }}
             />
           </View>

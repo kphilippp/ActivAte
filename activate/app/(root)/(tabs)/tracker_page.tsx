@@ -1,11 +1,11 @@
 import { SafeAreaView, Text, View } from "react-native";
 
-const MyGroupsPage = () => {
+const TrackerPage = () => {
   return (
     <SafeAreaView>
-      <Text>d</Text>
+      <Text>TrackerPage</Text>
     </SafeAreaView>
   );
 };
 
-export default MyGroupsPage;
+export default TrackerPage;

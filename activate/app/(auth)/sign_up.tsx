@@ -1,14 +1,17 @@
-import { useState } from "react";
-import { SafeAreaView, StyleSheet, Text, TextInput, View } from "react-native";
-import colors from "../../assets/colors";
-import CustomButton from "../../components/Button.jsx";
+import { SafeAreaView, StyleSheet, Text, View } from "react-native";
+import React, { useState } from "react";
+import { colors_ } from "@/constants/Colors";
+
+import CustomButton from "@/components/Button";
+import { router } from "expo-router";
+import { TextInput } from "react-native-gesture-handler";
 
 const SignUpScreen = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [birthday, setBirthday] = useState("");
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
+  const [birthday, setBirthday] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
   return (
     <SafeAreaView style={styles.main_container}>
@@ -21,56 +24,53 @@ const SignUpScreen = () => {
         </View>
         <View style={{ gap: 20 }}>
           <View style={{ gap: 10 }}>
-            <View style={{ flexDirection: "row", gap: 10 }}>
+            <View style={styles.nameContainer}>
               <TextInput
-                style={styles.inputName}
+                style={styles.nameInputs}
                 placeholder="First Name"
                 onChangeText={setFirstName}
-                placeholderTextColor={colors.input_placeholder}
+                placeholderTextColor={colors_.input_placeholder}
                 value={firstName}
               ></TextInput>
               <TextInput
-                style={styles.inputName}
+                style={styles.nameInputs}
                 placeholder="Last Name"
                 onChangeText={setLastName}
-                placeholderTextColor={colors.input_placeholder}
+                placeholderTextColor={colors_.input_placeholder}
                 value={lastName}
               ></TextInput>
             </View>
             <TextInput
               style={styles.input}
-              placeholder="Birthday"
+              placeholder="Set Birthday"
               onChangeText={setBirthday}
-              placeholderTextColor={colors.input_placeholder}
+              placeholderTextColor={colors_.input_placeholder}
               value={birthday}
             ></TextInput>
             <TextInput
               style={styles.input}
               placeholder="Email"
               onChangeText={setEmail}
-              placeholderTextColor={colors.input_placeholder}
+              placeholderTextColor={colors_.input_placeholder}
               value={email}
             ></TextInput>
             <TextInput
               style={styles.input}
               placeholder="Password"
               onChangeText={setPassword}
-              placeholderTextColor={colors.input_placeholder}
+              placeholderTextColor={colors_.input_placeholder}
               value={password}
             ></TextInput>
           </View>
           <View style={{ gap: 10 }}>
             <CustomButton
-              text="Login"
-              h={60}
-              w={"100%"}
-              color={colors.button_secondary}
-            />
-            <CustomButton
               text="Sign Up"
               h={60}
               w={"100%"}
-              color={colors.button_primary}
+              color={colors_.button_primary}
+              onPress={() => {
+                router.push("/(auth)/profile_configure");
+              }}
             />
           </View>
         </View>
@@ -79,9 +79,11 @@ const SignUpScreen = () => {
   );
 };
 
+export default SignUpScreen;
+
 const styles = StyleSheet.create({
   main_container: {
-    backgroundColor: colors.login_main,
+    backgroundColor: colors_.login_main,
     flex: 1,
   },
   container: {
@@ -93,14 +95,14 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
   },
   heading: {
-    color: colors.text_primary,
+    color: colors_.text_primary,
     fontWeight: "bold",
     fontSize: 60,
 
     lineHeight: 55,
   },
   caption: {
-    color: colors.text_primary,
+    color: colors_.text_primary,
 
     fontSize: 20,
   },
@@ -109,18 +111,20 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     padding: 10,
     paddingLeft: 20,
-    backgroundColor: colors.input_background,
-    color: colors.text_primary,
+    backgroundColor: colors_.input_background,
+    color: colors_.text_primary,
   },
-  inputName: {
+  nameContainer: {
+    flexDirection: "row",
+    gap: 10,
+  },
+  nameInputs: {
     height: 50,
     borderRadius: 10,
     padding: 10,
     paddingLeft: 20,
-    backgroundColor: colors.input_background,
-    color: colors.text_primary,
+    backgroundColor: colors_.input_background,
+    color: colors_.text_primary,
     flex: 1,
   },
 });
-
-export default SignUpScreen;

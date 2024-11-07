@@ -1,7 +1,7 @@
 import { StyleSheet, Text, View } from "react-native";
 import _colors from "../../assets/colors";
 import { SafeAreaView } from "react-native-safe-area-context";
-import CustomButton from "@/components/Button";
+import CustomButton from "../../components/Button";
 import { router } from "expo-router";
 import Swiper from "react-native-swiper";
 import { useRef, useState } from "react";

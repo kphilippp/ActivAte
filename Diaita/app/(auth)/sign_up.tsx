@@ -1,4 +1,4 @@
-import CustomButton from "../../components/Button";
+import CustomButton from "../../components/CustomButton";
 import { useState } from "react";
 import {
   SafeAreaView,
@@ -9,6 +9,7 @@ import {
 } from "react-native";
 
 import { router } from "expo-router";
+import OAuth from "@/components/auth/OAuth";
 
 const SignInScreen = () => {
   const [formData, setFormData] = useState({
@@ -23,8 +24,8 @@ const SignInScreen = () => {
 
   return (
     <SafeAreaView className="flex-1 bg-login_main ">
-      <View className="flex-1 justify-between px-16 py-36">
-        <View className="mb-16">
+      <View className="flex-1 justify-between px-16 py-20">
+        <View className="mb-24">
           <Text className="font-bold text-heading leading-[3.7rem] text-text_primary">
             Welcome Back
           </Text>
@@ -79,13 +80,11 @@ const SignInScreen = () => {
           </View>
           <View className="gap-3">
             <CustomButton
-              text="Sign Up"
-              buttonClass="flex-stretch bg-button_primary rounded-lg py-5"
-              textClass="text-center text-text_primary"
-              onPress={() => {
-                handleSignUp();
-              }}
+              title="Sign Up"
+              className="bg-button_primary rounded-xl py-4 shadow-none"
+              onPress={handleSignUp}
             />
+            <OAuth />
             <TouchableWithoutFeedback
               onPress={() => {
                 router.replace("/(auth)/sign_in");

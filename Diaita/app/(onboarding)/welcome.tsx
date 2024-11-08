@@ -1,6 +1,6 @@
 import { Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import CustomButton from "../../components/Button";
+import CustomButton from "../../components/CustomButton";
 import { router } from "expo-router";
 import Swiper from "react-native-swiper";
 import { useRef, useState } from "react";
@@ -37,18 +37,16 @@ const WelcomePage = () => {
       </Swiper>
       {activeIndex === 2 ? (
         <CustomButton
-          text="Continue"
-          buttonClass="bg-button_primary self-stretch py-5 rounded-xl"
-          textClass="text-white text-center "
+          title="Continue"
+          className="bg-button_primary shadow-none self-stretch py-5 rounded-xl"
           onPress={() => {
             router.replace("/(auth)/sign_up");
           }}
         />
       ) : (
         <CustomButton
-          text="Skip"
-          buttonClass="bg-button_primary self-stretch py-5 rounded-xl"
-          textClass="text-white text-center "
+          title="Skip"
+          className="bg-button_primary shadow-none self-stretch py-5 rounded-xl"
           onPress={() => {
             router.replace("/(auth)/sign_up");
           }}

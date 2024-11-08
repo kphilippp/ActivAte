@@ -1,5 +1,4 @@
-import { StyleSheet, Text, View } from "react-native";
-import { colors_ } from "../../constants/Colors";
+import { Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import CustomButton from "../../components/Button";
 import { router } from "expo-router";
@@ -12,22 +11,26 @@ const WelcomePage = () => {
   const [activeIndex, setActiveIndex] = useState(0);
 
   return (
-    <SafeAreaView style={styles.main_container}>
+    <SafeAreaView className="flex-1 bg-login_main items-center px-16 py-36">
       <Swiper
         ref={swiperRef}
         loop={false}
-        dot={<View style={styles.dot} />}
-        activeDot={<View style={styles.active_dot} />}
+        dot={<View className="w-8 h-1 flex-1 bg-swiperInactive mx-0.5 " />}
+        activeDot={<View className="w-8 h-1 flex-1 bg-swiperActive mx-0.5" />}
         onIndexChanged={(index: number) => setActiveIndex(index)}
       >
         {onboardingScreens.map((screen, index) => (
-          <View key={index} style={styles.container}>
-            <View style={{ gap: 10 }}>
-              <Text style={styles.heading}>{screen.title}</Text>
-              <Text style={styles.caption}>{screen.caption}</Text>
+          <View key={index} className="flex-1  justify-between">
+            <View className="gap-2.5">
+              <Text className="text-text_primary font-bold text-[60px] leading-[55px]">
+                {screen.title}
+              </Text>
+              <Text className="text-text_primary text-[20px]">
+                {screen.caption}
+              </Text>
             </View>
-            <View style={{ gap: 20 }}>
-              <View style={{ gap: 10 }}></View>
+            <View className="gap-5">
+              <View className="gap-2.5"></View>
             </View>
           </View>
         ))}
@@ -35,7 +38,8 @@ const WelcomePage = () => {
       {activeIndex === 2 ? (
         <CustomButton
           text="Continue"
-          className="bg-buttom_primary"
+          buttonClass="bg-button_primary self-stretch py-5 rounded-xl"
+          textClass="text-white text-center "
           onPress={() => {
             router.replace("/(auth)/sign_up");
           }}
@@ -43,7 +47,8 @@ const WelcomePage = () => {
       ) : (
         <CustomButton
           text="Skip"
-          className="bg-white"
+          buttonClass="bg-button_primary self-stretch py-5 rounded-xl"
+          textClass="text-white text-center "
           onPress={() => {
             router.replace("/(auth)/sign_up");
           }}
@@ -54,46 +59,3 @@ const WelcomePage = () => {
 };
 
 export default WelcomePage;
-
-const styles = StyleSheet.create({
-  main_container: {
-    backgroundColor: colors_.login_main,
-    flex: 1,
-    alignItems: "center",
-    paddingBottom: 100,
-  },
-  container: {
-    paddingTop: "30%",
-    paddingLeft: "12%",
-    paddingRight: "12%",
-    paddingBottom: "40%",
-    flex: 1,
-    justifyContent: "space-between",
-  },
-  heading: {
-    color: colors_.text_primary,
-    fontWeight: "bold",
-    fontSize: 60,
-
-    lineHeight: 55,
-  },
-  caption: {
-    color: colors_.text_primary,
-
-    fontSize: 20,
-  },
-  dot: {
-    width: 32,
-    height: 4,
-    marginLeft: 1,
-    marginRight: 1,
-    backgroundColor: colors_.text_primary,
-  },
-  active_dot: {
-    width: 32,
-    height: 4,
-    marginLeft: 1,
-    marginRight: 1,
-    backgroundColor: colors_.text_primary,
-  },
-});

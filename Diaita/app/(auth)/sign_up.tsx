@@ -9,26 +9,26 @@ const SignInScreen = () => {
   const [password, setPassword] = useState("");
 
   return (
-    <SafeAreaView className="flex-1 justify-center align-middle mx-10 my-52">
-      <View className="flex-1 justify-between">
-        <View className="mb-28">
-          <Text className="font-bold text-heading leading-[3.7rem]">
+    <SafeAreaView className="flex-1 bg-login_main ">
+      <View className="flex-1 justify-between px-16 py-36 ">
+        <View className="mb-28 ">
+          <Text className="font-bold text-heading leading-[3.7rem] text-text_primary">
             Welcome Back
           </Text>
-          <Text className="text-subheading ml-">
+          <Text className="text-subheading ml-1 text-text_primary">
             Achieve your fitness alongside your friends
           </Text>
         </View>
         <View className="flex-1 justify-between">
           <View>
             <TextInput
-              className="bg-black rounded-lg p-5"
+              className="bg-input_background placeholder:text-input_placeholder rounded-lg p-5 mb-3"
               placeholder="Email"
               onChangeText={setEmail}
               value={email}
             ></TextInput>
             <TextInput
-              className="bg-black rounded-lg p-5 text-input_placeholder"
+              className="bg-input_background placeholder:text-input_placeholder rounded-lg p-5 mb-3"
               placeholder="Password"
               onChangeText={setPassword}
               value={password}

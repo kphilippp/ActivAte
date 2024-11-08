@@ -1,9 +1,8 @@
 /** @type {import('tailwindcss').Config} */
-const colors_ = require("./colors.js"); // Adjust the path if needed
 
 module.exports = {
   // NOTE: Update this to include the paths to all of your component files.
-  content: ["./app/**/*.{js,jsx,ts,tsx}", "./components/*.{js,jsx,ts,tsx}"],
+  content: ["./app/**/*.{js,jsx,ts,tsx}", "./components/**/*.{js,jsx,ts,tsx}"],
   presets: [require("nativewind/preset")],
   theme: {
     extend: {
@@ -18,8 +17,11 @@ module.exports = {
         app_main: "#1A1A1A",
         app_secondary: "#212121",
         text_primary: "#FFFFFF",
+        text_secondary: "#000",
         button_primary: "#044687",
         button_secondary: "#1A1A1A",
+        swiperActive: "#044687",
+        swiperInactive: "#FFFFFF",
         input_background: "#565656",
         input_placeholder: "#FFFFFF",
       },

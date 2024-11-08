@@ -1,0 +1,99 @@
+import { StyleSheet, Text, View } from "react-native";
+import { colors_ } from "../../constants/Colors";
+import { SafeAreaView } from "react-native-safe-area-context";
+import CustomButton from "../../components/Button";
+import { router } from "expo-router";
+import Swiper from "react-native-swiper";
+import { useRef, useState } from "react";
+import onboardingScreens from "../../constants/OnboardingScreenDetails";
+
+const WelcomePage = () => {
+  const swiperRef = useRef<Swiper>(null);
+  const [activeIndex, setActiveIndex] = useState(0);
+
+  return (
+    <SafeAreaView style={styles.main_container}>
+      <Swiper
+        ref={swiperRef}
+        loop={false}
+        dot={<View style={styles.dot} />}
+        activeDot={<View style={styles.active_dot} />}
+        onIndexChanged={(index: number) => setActiveIndex(index)}
+      >
+        {onboardingScreens.map((screen, index) => (
+          <View key={index} style={styles.container}>
+            <View style={{ gap: 10 }}>
+              <Text style={styles.heading}>{screen.title}</Text>
+              <Text style={styles.caption}>{screen.caption}</Text>
+            </View>
+            <View style={{ gap: 20 }}>
+              <View style={{ gap: 10 }}></View>
+            </View>
+          </View>
+        ))}
+      </Swiper>
+      {activeIndex === 2 ? (
+        <CustomButton
+          text="Continue"
+          className="bg-buttom_primary"
+          onPress={() => {
+            router.replace("/(auth)/sign_up");
+          }}
+        />
+      ) : (
+        <CustomButton
+          text="Skip"
+          className="bg-white"
+          onPress={() => {
+            router.replace("/(auth)/sign_up");
+          }}
+        />
+      )}
+    </SafeAreaView>
+  );
+};
+
+export default WelcomePage;
+
+const styles = StyleSheet.create({
+  main_container: {
+    backgroundColor: colors_.login_main,
+    flex: 1,
+    alignItems: "center",
+    paddingBottom: 100,
+  },
+  container: {
+    paddingTop: "30%",
+    paddingLeft: "12%",
+    paddingRight: "12%",
+    paddingBottom: "40%",
+    flex: 1,
+    justifyContent: "space-between",
+  },
+  heading: {
+    color: colors_.text_primary,
+    fontWeight: "bold",
+    fontSize: 60,
+
+    lineHeight: 55,
+  },
+  caption: {
+    color: colors_.text_primary,
+
+    fontSize: 20,
+  },
+  dot: {
+    width: 32,
+    height: 4,
+    marginLeft: 1,
+    marginRight: 1,
+    backgroundColor: colors_.text_primary,
+  },
+  active_dot: {
+    width: 32,
+    height: 4,
+    marginLeft: 1,
+    marginRight: 1,
+    backgroundColor: colors_.text_primary,
+  },
+});

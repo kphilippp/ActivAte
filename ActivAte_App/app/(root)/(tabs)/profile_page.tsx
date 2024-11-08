@@ -1,10 +1,11 @@
 import _colors from "@/assets/colors";
 import { SafeAreaView, StyleSheet, Text, View } from "react-native";
+import "../../../global.css";
 
 const ProfilePage = () => {
   return (
     <SafeAreaView>
-      <View></View>
+      <Text className="font-bold text-2xl">Hello this profile</Text>
     </SafeAreaView>
   );
 };

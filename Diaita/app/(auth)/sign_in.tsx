@@ -18,7 +18,7 @@ const SignInScreen = () => {
   });
 
   const handleLogin = () => {
-    router.replace("/(root)/explore");
+    router.replace("/(root)/(tabs)/explore");
   };
 
   return (

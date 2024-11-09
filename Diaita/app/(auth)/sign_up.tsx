@@ -6,12 +6,19 @@ import {
   TextInput,
   TouchableWithoutFeedback,
   View,
+  Image,
+  Alert,
 } from "react-native";
 
 import { router } from "expo-router";
 import OAuth from "@/components/auth/OAuth";
+import { useSignUp } from "@clerk/clerk-expo";
+import { icons, images } from "@/constants";
 
-const SignInScreen = () => {
+import { ReactNativeModal } from "react-native-modal";
+import CustomInput from "@/components/CustomInput";
+
+const SignUpScreen = () => {
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
@@ -20,7 +27,66 @@ const SignInScreen = () => {
     password: "",
   });
 
-  const handleSignUp = () => {};
+  const { isLoaded, signUp, setActive } = useSignUp();
+  const [verification, setVerification] = useState({
+    state: "default",
+    error: "",
+    code: "",
+  });
+  const [code, setCode] = useState("");
+  const [showSuccessModal, setShowSuccessModal] = useState(false);
+
+  const handleSignUp = async () => {
+    if (!isLoaded) {
+      return;
+    }
+
+    try {
+      await signUp.create({
+        emailAddress: formData.email,
+        password: formData.password,
+      });
+
+      await signUp.prepareEmailAddressVerification({ strategy: "email_code" });
+
+      setVerification({
+        ...verification,
+        state: "pending",
+      });
+    } catch (err: any) {
+      Alert.alert("Error", err.errors[0].longMessage);
+    }
+  };
+
+  const onPressVerify = async () => {
+    if (!isLoaded) {
+      return;
+    }
+
+    try {
+      const completeSignUp = await signUp.attemptEmailAddressVerification({
+        code: verification.code,
+      });
+
+      if (completeSignUp.status === "complete") {
+        //TODO: Create User in PostgreSQL database if Clerk User Created
+        await setActive({ session: completeSignUp.createdSessionId });
+        setVerification({ ...verification, state: "success" });
+      } else {
+        setVerification({
+          ...verification,
+          error: "Verification Failed",
+          state: "failed",
+        });
+      }
+    } catch (err: any) {
+      setVerification({
+        ...verification,
+        error: err.errors[0].longMessage,
+        state: "failed",
+      });
+    }
+  };
 
   return (
     <SafeAreaView className="flex-1 bg-login_main ">
@@ -33,6 +99,7 @@ const SignInScreen = () => {
             Achieve your fitness alongside your friends
           </Text>
         </View>
+
         <View className="flex-1 justify-between">
           <View className="gap-3">
             <View className="flex-row gap-3">
@@ -84,6 +151,7 @@ const SignInScreen = () => {
               className="bg-button_primary rounded-xl py-4 shadow-none"
               onPress={handleSignUp}
             />
+            {/* OAuth Button */}
             <OAuth />
             <TouchableWithoutFeedback
               onPress={() => {
@@ -101,9 +169,66 @@ const SignInScreen = () => {
             </TouchableWithoutFeedback>
           </View>
         </View>
+
+        {/* Verification Modal */}
+        <ReactNativeModal
+          isVisible={verification.state === "pending"}
+          onModalHide={() => {
+            if (verification.state === "success") setShowSuccessModal(true);
+          }}
+        >
+          <View className="bg-white px-7 py-9 rounded-2xl min-h-[300px]">
+            <Text className="text-2xl text-center">Verification</Text>
+            <Text className="text-base text-gray-400 text-center">
+              We've sent a verification code to your email!
+            </Text>
+            <CustomInput
+              label="Code"
+              icon={icons.lock}
+              placeholder="Enter code here"
+              labelStyle="mt-6"
+              value={verification.code}
+              keyboardType="numeric"
+              onChange={(code_) =>
+                setVerification({ ...verification, code: code_ })
+              }
+            />
+            {verification.error && (
+              <Text className="text-red-500 text-sm mt-1">
+                Invalid Verification Code
+              </Text>
+            )}
+            <CustomButton
+              title="Verify Email"
+              className="mt-5 bg-green-600 rounded-2xl "
+              onPress={onPressVerify}
+            />
+          </View>
+        </ReactNativeModal>
+
+        <ReactNativeModal isVisible={showSuccessModal}>
+          <View className="bg-white px-7 py-9 rounded-2xl min-h-[300px]">
+            <Image
+              source={images.check}
+              className="w-[110px] h-[110px] mx-auto my-5"
+            />
+            <Text className="text-2xl text-center">Verified</Text>
+            <Text className="text-base text-gray-400 text-center">
+              You have successfully verified your account
+            </Text>
+            <CustomButton
+              title="Go Home"
+              className="mt-5 bg-button_primary rounded-2xl "
+              onPress={() => {
+                setShowSuccessModal(false);
+                router.push("/(root)/(tabs)/explore");
+              }}
+            />
+          </View>
+        </ReactNativeModal>
       </View>
     </SafeAreaView>
   );
 };
 
-export default SignInScreen;
+export default SignUpScreen;

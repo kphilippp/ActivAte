@@ -1,5 +1,5 @@
 import CustomButton from "../../components/CustomButton";
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import {
   SafeAreaView,
   Text,
@@ -8,18 +8,41 @@ import {
   View,
 } from "react-native";
 
-import { router } from "expo-router";
+import { router, useRouter } from "expo-router";
 import OAuth from "@/components/auth/OAuth";
+import { useSignIn } from "@clerk/clerk-expo";
 
 const SignInScreen = () => {
   const [formData, setFormData] = useState({
     email: "",
     password: "",
   });
+  const { signIn, setActive, isLoaded } = useSignIn();
+  const router = useRouter();
 
-  const handleLogin = () => {
-    router.replace("/(root)/(tabs)/explore");
-  };
+  const handleLogin = useCallback(async () => {
+    if (!isLoaded) {
+      return;
+    }
+
+    try {
+      const signInAttempt = await signIn.create({
+        identifier: formData.email,
+        password: formData.password,
+      });
+
+      if (signInAttempt.status === "complete") {
+        await setActive({ session: signInAttempt.createdSessionId });
+        router.replace("/(root)/(tabs)/explore");
+      } else {
+        // See https://clerk.com/docs/custom-flows/error-handling
+        // for more info on error handling
+        console.error(JSON.stringify(signInAttempt, null, 2));
+      }
+    } catch (err: any) {
+      console.error(JSON.stringify(err, null, 2));
+    }
+  }, [isLoaded, formData.email, formData.password]);
 
   return (
     <SafeAreaView className="flex-1 bg-login_main ">

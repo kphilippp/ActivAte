@@ -33,7 +33,7 @@ const SignUpScreen = () => {
     error: "",
     code: "",
   });
-  const [code, setCode] = useState("");
+
   const [showSuccessModal, setShowSuccessModal] = useState(false);
 
   const handleSignUp = async () => {
@@ -180,7 +180,7 @@ const SignUpScreen = () => {
           <View className="bg-white px-7 py-9 rounded-2xl min-h-[300px]">
             <Text className="text-2xl text-center">Verification</Text>
             <Text className="text-base text-gray-400 text-center">
-              We've sent a verification code to your email!
+              We've sent a verification code to your email!{formData.email}
             </Text>
             <CustomInput
               label="Code"
@@ -189,8 +189,8 @@ const SignUpScreen = () => {
               labelStyle="mt-6"
               value={verification.code}
               keyboardType="numeric"
-              onChange={(code_) =>
-                setVerification({ ...verification, code: code_ })
+              onChangeText={(code) =>
+                setVerification({ ...verification, code })
               }
             />
             {verification.error && (
